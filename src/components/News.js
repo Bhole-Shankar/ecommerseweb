@@ -1,10 +1,9 @@
 
 import React, { Component } from 'react'
-import Newsitem from './Newsitem'
+import Categories from './Categories';
+import Products from './Products';
 
 export class News extends Component {
-
-
     constructor(props) {
         super(props);
         console.log("constructor");
@@ -30,17 +29,25 @@ export class News extends Component {
         return (
             <div>
                 <div className="container my-3" style={{ margintop: "100px" }}>
-                    <h3>News Headlines</h3>
-                    {/* <div className="d-flex justify-content-center"> { this.state.loading && <Spinner/>}</div> */}
 
                     <div className="container">
                         <div className="row">
                             {this.state.categories.map((element) => {
-                                return <div className="col-md-4 my-2" key={element.id}>
+                                return <div className="col-md-4 my-2">
 
-                                    <Newsitem name={element.name_json.english ? element.name_json.english : ""} price = {element?.[0].products.price} id={element.id ? element.id : "unknown price"} /></div>
-                           
-                           })}
+                                 <Categories catename={element.name_json.english} cateid={element.id} />
+
+                                    {element.products.map((subdata) => {
+                                        return <>
+
+                                    <Products proname={subdata.name_json.english} proid={subdata.id} price={subdata.price} prodes={subdata.description_json.english}/>
+                                        </>
+
+                                    })}
+
+                                </div>
+
+                            })}
                         </div>
                     </div>
                 </div>
